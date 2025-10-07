@@ -33,7 +33,7 @@ const CommunityScreen: React.FC = () => {
     }
 
     try {
-      await createPost(newPost);
+      await createPost({ ...newPost, userId: 'current-user' });
       toast.success('Post created successfully');
       setNewPost({ content: '', category: 'support', isAnonymous: false });
       setShowCreatePost(false);
@@ -557,3 +557,6 @@ const ProfessionalIntegrationScreen: React.FC = () => {
 };
 
 export { CommunityScreen, ProfessionalIntegrationScreen };
+
+
+
