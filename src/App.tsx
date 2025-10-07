@@ -3,227 +3,433 @@ import React, { useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 
 const App: React.FC = () => {
-  const [currentScreen, setCurrentScreen] = useState('welcome');
-  const [onboardingStep, setOnboardingStep] = useState(0);
-  const [authMode, setAuthMode] = useState('signup'); // 'signup' or 'login'
+const [currentScreen, setCurrentScreen] = useState('welcome');
+const [onboardingStep, setOnboardingStep] = useState(0);
+const [authMode, setAuthMode] = useState('signup'); // 'signup' or 'login'
 
-  const WelcomeScreen = () => (
-    <div className="min-h-screen bg-gradient-to-b from-sky-100 via-purple-50 to-orange-50 flex flex-col items-center justify-center px-8 relative overflow-hidden">
-      {/* Animated breathing circles */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="w-96 h-96 rounded-full bg-gradient-to-r from-sky-200/20 to-purple-200/20 animate-pulse"></div>
-        <div className="absolute w-64 h-64 rounded-full bg-gradient-to-r from-purple-200/30 to-orange-200/30 animate-pulse delay-1000"></div>
-      </div>
-      {/* Logo */}
-      <div className="relative z-10 mb-8">
-        <div className="w-24 h-24 mx-auto mb-6 relative">
-          <div className="w-full h-full rounded-full bg-gradient-to-br from-purple-300 to-sky-300 flex items-center justify-center shadow-lg">
-            <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center">
-              <i className="fas fa-heart text-2xl text-purple-400"></i>
-            </div>
-          </div>
-          <div className="absolute inset-0 rounded-full bg-purple-300/30 animate-ping"></div>
-        </div>
-        <h1 className="text-4xl font-bold text-gray-800 text-center mb-3" style={{ fontFamily: 'Poppins, sans-serif' }}>
-          MindMate AI
-        </h1>
-        <p className="text-lg text-gray-600 text-center leading-relaxed" style={{ fontFamily: 'Nunito, sans-serif' }}>
-          Your AI-powered emotional wellness companion
-        </p>
-      </div>
-      {/* Buttons */}
-      <div className="relative z-10 w-full max-w-sm space-y-4 mt-12">
-        <button
-          onClick={() => setCurrentScreen('onboarding')}
-          className="w-full py-4 bg-gradient-to-r from-orange-200 to-pink-200 text-gray-800 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer !rounded-button"
-          style={{ fontFamily: 'Poppins, sans-serif' }}
-        >
-          Get Started
-        </button>
-        <button
+const WelcomeScreen = () => (
+<div className="min-h-screen bg-gradient-to-b from-sky-100 via-purple-50 to-orange-50 flex flex-col items-center justify-center px-8 relative overflow-hidden">
+{/* Animated breathing circles */}
+<div className="absolute inset-0 flex items-center justify-center">
+<div className="w-96 h-96 rounded-full bg-gradient-to-r from-sky-200/20 to-purple-200/20 animate-pulse"></div>
+<div className="absolute w-64 h-64 rounded-full bg-gradient-to-r from-purple-200/30 to-orange-200/30 animate-pulse delay-1000"></div>
+</div>
+{/* Logo */}
+<div className="relative z-10 mb-8">
+<div className="w-24 h-24 mx-auto mb-6 relative">
+<div className="w-full h-full rounded-full bg-gradient-to-br from-purple-300 to-sky-300 flex items-center justify-center shadow-lg">
+<div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center">
+<i className="fas fa-heart text-2xl text-purple-400"></i>
+</div>
+</div>
+<div className="absolute inset-0 rounded-full bg-purple-300/30 animate-ping"></div>
+</div>
+<h1 className="text-4xl font-bold text-gray-800 text-center mb-3" style={{ fontFamily: 'Poppins, sans-serif' }}>
+MindMate AI
+</h1>
+<p className="text-lg text-gray-600 text-center leading-relaxed" style={{ fontFamily: 'Nunito, sans-serif' }}>
+Your AI-powered emotional wellness companion
+</p>
+</div>
+{/* Buttons */}
+<div className="relative z-10 w-full max-w-sm space-y-4 mt-12">
+<button
+onClick={() => setCurrentScreen('onboarding')}
+className="w-full py-4 bg-gradient-to-r from-orange-200 to-pink-200 text-gray-800 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer !rounded-button"
+style={{ fontFamily: 'Poppins, sans-serif' }}
+>
+Get Started
+</button>
+<button
           onClick={() => setCurrentScreen('auth')}
-          className="w-full py-4 border-2 border-purple-200 text-purple-600 rounded-full font-semibold text-lg hover:bg-purple-50 transition-all duration-300 cursor-pointer !rounded-button"
-          style={{ fontFamily: 'Poppins, sans-serif' }}
-        >
-          Sign In
-        </button>
-      </div>
-    </div>
-  );
+className="w-full py-4 border-2 border-purple-200 text-purple-600 rounded-full font-semibold text-lg hover:bg-purple-50 transition-all duration-300 cursor-pointer !rounded-button"
+style={{ fontFamily: 'Poppins, sans-serif' }}
+>
+Sign In
+</button>
+</div>
+</div>
+);
 
-  const OnboardingScreen = () => {
-    const slides = [
-      {
-        title: "Talk to your AI therapist anytime",
-        description: "Get personalized emotional support whenever you need it, available 24/7",
-        gradient: "from-pink-400 via-purple-500 to-indigo-600",
-        mainImage: "https://readdy.ai/api/search-image?query=diverse%20young%20people%20having%20conversation%20with%20AI%20companion%2C%20gen%20z%20mental%20health%20support%2C%20vibrant%20colorful%20lifestyle%2C%20modern%20therapy%20session%2C%20emotional%20wellness%20technology%2C%20contemporary%20illustration%20style%2C%20bright%20gradient%20colors%2C%20high-definition%20digital%20art%2C%20optimistic%20atmosphere%2C%20minimalist%20composition&width=280&height=320&seq=main1&orientation=portrait"
-      },
-      {
-        title: "Science-backed emotional support",
-        description: "Evidence-based techniques designed specifically for your unique wellness needs",
-        gradient: "from-orange-400 via-pink-500 to-purple-600",
-        mainImage: "https://readdy.ai/api/search-image?query=young%20adults%20practicing%20evidence-based%20wellness%20techniques%2C%20generation%20z%20mental%20health%20innovation%2C%20colorful%20modern%20therapeutic%20activities%2C%20mindfulness%20and%20CBT%20practices%2C%20vibrant%20contemporary%20lifestyle%2C%20high-definition%20illustration%2C%20bright%20gradient%20atmosphere%2C%20emotional%20wellbeing%20concept%2C%20minimalist%20design&width=280&height=320&seq=main2&orientation=portrait"
-      },
-      {
-        title: "Track your wellness journey",
-        description: "Visualize your mental health progress and celebrate every milestone forward",
-        gradient: "from-blue-400 via-teal-500 to-green-500",
-        mainImage: "https://readdy.ai/api/search-image?query=generation%20z%20celebrating%20personal%20growth%20milestones%2C%20diverse%20young%20people%20achieving%20wellness%20goals%2C%20vibrant%20progress%20visualization%2C%20colorful%20success%20celebration%2C%20modern%20lifestyle%20photography%2C%20mental%20health%20journey%2C%20bright%20optimistic%20colors%2C%20high-definition%20digital%20art%2C%20contemporary%20illustration%20style&width=280&height=320&seq=main3&orientation=portrait"
-      }
-    ];
+const OnboardingScreen = () => {
+const slides = [
+{
+title: "Talk to your AI therapist anytime",
+description: "Get personalized emotional support whenever you need it, available 24/7",
+gradient: "from-pink-400 via-purple-500 to-indigo-600",
+mainImage: "https://readdy.ai/api/search-image?query=diverse%20young%20people%20having%20conversation%20with%20AI%20companion%2C%20gen%20z%20mental%20health%20support%2C%20vibrant%20colorful%20lifestyle%2C%20modern%20therapy%20session%2C%20emotional%20wellness%20technology%2C%20contemporary%20illustration%20style%2C%20bright%20gradient%20colors%2C%20high-definition%20digital%20art%2C%20optimistic%20atmosphere%2C%20minimalist%20composition&width=280&height=320&seq=main1&orientation=portrait"
+},
+{
+title: "Science-backed emotional support",
+description: "Evidence-based techniques designed specifically for your unique wellness needs",
+gradient: "from-orange-400 via-pink-500 to-purple-600",
+mainImage: "https://readdy.ai/api/search-image?query=young%20adults%20practicing%20evidence-based%20wellness%20techniques%2C%20generation%20z%20mental%20health%20innovation%2C%20colorful%20modern%20therapeutic%20activities%2C%20mindfulness%20and%20CBT%20practices%2C%20vibrant%20contemporary%20lifestyle%2C%20high-definition%20illustration%2C%20bright%20gradient%20atmosphere%2C%20emotional%20wellbeing%20concept%2C%20minimalist%20design&width=280&height=320&seq=main2&orientation=portrait"
+},
+{
+title: "Track your wellness journey",
+description: "Visualize your mental health progress and celebrate every milestone forward",
+gradient: "from-blue-400 via-teal-500 to-green-500",
+mainImage: "https://readdy.ai/api/search-image?query=generation%20z%20celebrating%20personal%20growth%20milestones%2C%20diverse%20young%20people%20achieving%20wellness%20goals%2C%20vibrant%20progress%20visualization%2C%20colorful%20success%20celebration%2C%20modern%20lifestyle%20photography%2C%20mental%20health%20journey%2C%20bright%20optimistic%20colors%2C%20high-definition%20digital%20art%2C%20contemporary%20illustration%20style&width=280&height=320&seq=main3&orientation=portrait"
+}
+];
 
-    return (
-      <div className={`min-h-screen bg-gradient-to-br ${slides[onboardingStep].gradient} flex flex-col relative overflow-hidden`}>
-        {/* Skip button */}
-        <div className="absolute top-12 right-6 z-20">
-          <button
-            onClick={() => setCurrentScreen('auth')}
-            className="text-white/80 text-sm font-medium px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-all duration-300"
-            style={{ fontFamily: 'Poppins, sans-serif' }}
-          >
-            Skip
-          </button>
-        </div>
-        {/* Main content */}
-        <div className="flex-1 flex flex-col items-center justify-center px-8 py-20 relative z-10">
-          {/* Main illustration */}
-          <div className="relative mb-16">
-            {/* Floating decorative elements */}
-            <div className="absolute -top-8 -left-4 w-20 h-20 bg-white/20 rounded-full blur-xl animate-pulse"></div>
-            <div className="absolute -top-4 -right-8 w-16 h-16 bg-white/15 rounded-full blur-lg animate-pulse delay-1000"></div>
-            <div className="absolute -bottom-6 left-8 w-12 h-12 bg-white/25 rounded-full blur-md animate-pulse delay-500"></div>
-            {/* Main image container */}
-            <div className="relative z-10 w-72 h-80 rounded-3xl overflow-hidden shadow-2xl bg-white/10 backdrop-blur-sm border border-white/20">
-              <img
-                src={slides[onboardingStep].mainImage}
-                alt="Wellness illustration"
-                className="w-full h-full object-cover object-center"
-              />
-              {/* Gradient overlay for better text contrast */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
-            </div>
-          </div>
-          {/* Text content */}
-          <div className="text-center text-white max-w-sm">
-            <h2 className="text-3xl font-bold mb-6 leading-tight" style={{ fontFamily: 'Poppins, sans-serif' }}>
-              {slides[onboardingStep].title}
-            </h2>
-            <p className="text-white/90 text-lg leading-relaxed font-medium" style={{ fontFamily: 'Nunito, sans-serif' }}>
-              {slides[onboardingStep].description}
-            </p>
-          </div>
-        </div>
-        {/* Bottom section */}
-        <div className="px-8 pb-8">
-          {/* Navigation dots */}
-          <div className="flex justify-center space-x-3 mb-8">
-            {slides.map((_, index) => (
-              <div
-                key={index}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  index === onboardingStep
-                    ? 'bg-white w-8'
-                    : 'bg-white/40 w-2'
-                }`}
-              />
-            ))}
-          </div>
-          {/* Navigation buttons */}
-          <div className="flex justify-between items-center">
-            <button
-              onClick={() => {
-                if (onboardingStep > 0) {
-                  setOnboardingStep(onboardingStep - 1);
-                }
-              }}
-              className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
-                onboardingStep > 0
-                  ? 'text-white bg-white/20 backdrop-blur-sm hover:bg-white/30'
-                  : 'text-transparent'
-              }`}
-              style={{ fontFamily: 'Poppins, sans-serif' }}
-              disabled={onboardingStep === 0}
-            >
-              Previous
-            </button>
-            <button
-              onClick={() => {
-                if (onboardingStep < slides.length - 1) {
-                  setOnboardingStep(onboardingStep + 1);
-                } else {
-                  setCurrentScreen('auth');
-                }
-              }}
-              className="px-8 py-4 bg-white text-gray-800 rounded-full font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-pointer !rounded-button"
-              style={{ fontFamily: 'Poppins, sans-serif' }}
-            >
-              {onboardingStep < slides.length - 1 ? 'Next' : 'Get Started'}
-            </button>
-          </div>
-        </div>
-        {/* Decorative elements */}
-        <div className="absolute top-20 left-8 w-16 h-16 bg-white/10 rounded-full blur-xl"></div>
-        <div className="absolute bottom-40 right-12 w-24 h-24 bg-white/10 rounded-full blur-xl"></div>
-        <div className="absolute top-1/3 right-6 w-8 h-8 bg-white/20 rounded-full blur-md"></div>
-      </div>
-    );
-  };
+return (
+<div className={`min-h-screen bg-gradient-to-br ${slides[onboardingStep].gradient} flex flex-col relative overflow-hidden`}>
+{/* Skip button */}
+<div className="absolute top-12 right-6 z-20">
+<button
+onClick={() => setCurrentScreen('auth')}
+className="text-white/80 text-sm font-medium px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-all duration-300"
+style={{ fontFamily: 'Poppins, sans-serif' }}
+>
+Skip
+</button>
+</div>
+{/* Main content */}
+<div className="flex-1 flex flex-col items-center justify-center px-8 py-20 relative z-10">
+{/* Main illustration */}
+<div className="relative mb-16">
+{/* Floating decorative elements */}
+<div className="absolute -top-8 -left-4 w-20 h-20 bg-white/20 rounded-full blur-xl animate-pulse"></div>
+<div className="absolute -top-4 -right-8 w-16 h-16 bg-white/15 rounded-full blur-lg animate-pulse delay-1000"></div>
+<div className="absolute -bottom-6 left-8 w-12 h-12 bg-white/25 rounded-full blur-md animate-pulse delay-500"></div>
+{/* Main image container */}
+<div className="relative z-10 w-72 h-80 rounded-3xl overflow-hidden shadow-2xl bg-white/10 backdrop-blur-sm border border-white/20">
+<img
+src={slides[onboardingStep].mainImage}
+alt="Wellness illustration"
+className="w-full h-full object-cover object-center"
+/>
+{/* Gradient overlay for better text contrast */}
+<div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
+</div>
+</div>
+{/* Text content */}
+<div className="text-center text-white max-w-sm">
+<h2 className="text-3xl font-bold mb-6 leading-tight" style={{ fontFamily: 'Poppins, sans-serif' }}>
+{slides[onboardingStep].title}
+</h2>
+<p className="text-white/90 text-lg leading-relaxed font-medium" style={{ fontFamily: 'Nunito, sans-serif' }}>
+{slides[onboardingStep].description}
+</p>
+</div>
+</div>
+{/* Bottom section */}
+<div className="px-8 pb-8">
+{/* Navigation dots */}
+<div className="flex justify-center space-x-3 mb-8">
+{slides.map((_, index) => (
+<div
+key={index}
+className={`h-2 rounded-full transition-all duration-300 ${
+index === onboardingStep
+? 'bg-white w-8'
+: 'bg-white/40 w-2'
+}`}
+/>
+))}
+</div>
+{/* Navigation buttons */}
+<div className="flex justify-between items-center">
+<button
+onClick={() => {
+if (onboardingStep > 0) {
+setOnboardingStep(onboardingStep - 1);
+}
+}}
+className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
+onboardingStep > 0
+? 'text-white bg-white/20 backdrop-blur-sm hover:bg-white/30'
+: 'text-transparent'
+}`}
+style={{ fontFamily: 'Poppins, sans-serif' }}
+disabled={onboardingStep === 0}
+>
+Previous
+</button>
+<button
+onClick={() => {
+if (onboardingStep < slides.length - 1) {
+setOnboardingStep(onboardingStep + 1);
+} else {
+setCurrentScreen('auth');
+}
+}}
+className="px-8 py-4 bg-white text-gray-800 rounded-full font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-pointer !rounded-button"
+style={{ fontFamily: 'Poppins, sans-serif' }}
+>
+{onboardingStep < slides.length - 1 ? 'Next' : 'Get Started'}
+</button>
+</div>
+</div>
+{/* Decorative elements */}
+<div className="absolute top-20 left-8 w-16 h-16 bg-white/10 rounded-full blur-xl"></div>
+<div className="absolute bottom-40 right-12 w-24 h-24 bg-white/10 rounded-full blur-xl"></div>
+<div className="absolute top-1/3 right-6 w-8 h-8 bg-white/20 rounded-full blur-md"></div>
+</div>
+);
+};
 
   const ChatScreen = () => {
     const [query, setQuery] = React.useState('');
+    const [showSourcesModal, setShowSourcesModal] = React.useState(false);
+    const [searchSources, setSearchSources] = React.useState({
+      web: true,
+      academic: false,
+      finance: false,
+      social: false
+    });
+    const [selectedModel, setSelectedModel] = React.useState('perplexity');
+
     const watermark = (
       <div className="pointer-events-none select-none absolute inset-0 flex items-center justify-center">
         <div className="text-gray-300/60 text-2xl tracking-wide text-center">
           <div className="w-6 h-6 mx-auto mb-3 border border-gray-300/70 rounded-md rotate-45"></div>
-          <div className="font-serif">Where</div>
-          <div className="font-serif">knowledge</div>
-          <div className="font-serif">begins</div>
+          <div className="font-serif">Mind</div>
+          <div className="font-serif">Mate</div>
+          <div className="font-serif">Ai</div>
+        </div>
+      </div>
+    );
+
+    const SourcesModal = () => (
+      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-end">
+        <div className="w-full bg-gray-900 rounded-t-3xl p-6 pb-8">
+          {/* Drag handle */}
+          <div className="w-12 h-1 bg-gray-600 rounded-full mx-auto mb-6"></div>
+          
+          {/* Header */}
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-xl font-semibold text-white">Sources</h2>
+            <button 
+              onClick={() => setShowSourcesModal(false)}
+              className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white"
+            >
+              <i className="fas fa-times"></i>
+            </button>
+          </div>
+
+          {/* Model Selection */}
+          <div className="mb-8">
+            <h3 className="text-white font-medium mb-4">AI Model</h3>
+            <div className="grid grid-cols-2 gap-3">
+              <button 
+                onClick={() => setSelectedModel('chatgpt')}
+                className={`p-3 rounded-xl border-2 transition-colors ${
+                  selectedModel === 'chatgpt' 
+                    ? 'border-green-500 bg-green-500/10' 
+                    : 'border-gray-700 bg-gray-800 hover:bg-gray-700'
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 bg-green-500 rounded flex items-center justify-center">
+                    <span className="text-white text-xs font-bold">C</span>
+                  </div>
+                  <span className="text-white text-sm font-medium">ChatGPT</span>
+                </div>
+              </button>
+              <button 
+                onClick={() => setSelectedModel('perplexity')}
+                className={`p-3 rounded-xl border-2 transition-colors ${
+                  selectedModel === 'perplexity' 
+                    ? 'border-blue-500 bg-blue-500/10' 
+                    : 'border-gray-700 bg-gray-800 hover:bg-gray-700'
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 bg-blue-500 rounded flex items-center justify-center">
+                    <span className="text-white text-xs font-bold">P</span>
+                  </div>
+                  <span className="text-white text-sm font-medium">Perplexity</span>
+                </div>
+              </button>
+              <button 
+                onClick={() => setSelectedModel('gemini')}
+                className={`p-3 rounded-xl border-2 transition-colors ${
+                  selectedModel === 'gemini' 
+                    ? 'border-purple-500 bg-purple-500/10' 
+                    : 'border-gray-700 bg-gray-800 hover:bg-gray-700'
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 bg-purple-500 rounded flex items-center justify-center">
+                    <span className="text-white text-xs font-bold">G</span>
+                  </div>
+                  <span className="text-white text-sm font-medium">Gemini</span>
+                </div>
+              </button>
+              <button 
+                onClick={() => setSelectedModel('grok')}
+                className={`p-3 rounded-xl border-2 transition-colors ${
+                  selectedModel === 'grok' 
+                    ? 'border-orange-500 bg-orange-500/10' 
+                    : 'border-gray-700 bg-gray-800 hover:bg-gray-700'
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 bg-orange-500 rounded flex items-center justify-center">
+                    <span className="text-white text-xs font-bold">X</span>
+                  </div>
+                  <span className="text-white text-sm font-medium">Grok</span>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          {/* Upload Options */}
+          <div className="mb-8">
+            <div className="flex gap-4">
+              <button className="flex-1 bg-gray-800 rounded-2xl p-4 text-center hover:bg-gray-700 transition-colors">
+                <div className="w-12 h-12 bg-gray-700 rounded-xl flex items-center justify-center mx-auto mb-3">
+                  <i className="fas fa-image text-gray-300"></i>
+                </div>
+                <span className="text-white text-sm font-medium">Image</span>
+              </button>
+              <button className="flex-1 bg-gray-800 rounded-2xl p-4 text-center hover:bg-gray-700 transition-colors">
+                <div className="w-12 h-12 bg-gray-700 rounded-xl flex items-center justify-center mx-auto mb-3">
+                  <i className="fas fa-camera text-gray-300"></i>
+                </div>
+                <span className="text-white text-sm font-medium">Camera</span>
+              </button>
+              <button className="flex-1 bg-gray-800 rounded-2xl p-4 text-center hover:bg-gray-700 transition-colors">
+                <div className="w-12 h-12 bg-gray-700 rounded-xl flex items-center justify-center mx-auto mb-3">
+                  <i className="fas fa-arrow-up text-gray-300"></i>
+                </div>
+                <span className="text-white text-sm font-medium">File</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Search Sources */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between p-4 bg-gray-800 rounded-xl">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-gray-700 rounded-lg flex items-center justify-center">
+                  <i className="fas fa-globe text-gray-300"></i>
+                </div>
+                <div>
+                  <div className="text-white font-medium">Web</div>
+                  <div className="text-gray-400 text-sm">Search across the entire internet</div>
+                </div>
+              </div>
+              <button 
+                onClick={() => setSearchSources(prev => ({...prev, web: !prev.web}))}
+                className={`w-12 h-6 rounded-full transition-colors ${searchSources.web ? 'bg-blue-500' : 'bg-gray-600'}`}
+              >
+                <div className={`w-5 h-5 bg-white rounded-full transition-transform ${searchSources.web ? 'translate-x-6' : 'translate-x-0.5'} mt-0.5`}></div>
+              </button>
+            </div>
+
+            <div className="flex items-center justify-between p-4 bg-gray-800 rounded-xl">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-gray-700 rounded-lg flex items-center justify-center">
+                  <i className="fas fa-graduation-cap text-gray-300"></i>
+                </div>
+                <div>
+                  <div className="text-white font-medium">Academic</div>
+                  <div className="text-gray-400 text-sm">Search for published academic papers</div>
+                </div>
+              </div>
+              <button 
+                onClick={() => setSearchSources(prev => ({...prev, academic: !prev.academic}))}
+                className={`w-12 h-6 rounded-full transition-colors ${searchSources.academic ? 'bg-blue-500' : 'bg-gray-600'}`}
+              >
+                <div className={`w-5 h-5 bg-white rounded-full transition-transform ${searchSources.academic ? 'translate-x-6' : 'translate-x-0.5'} mt-0.5`}></div>
+              </button>
+            </div>
+
+            <div className="flex items-center justify-between p-4 bg-gray-800 rounded-xl">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-gray-700 rounded-lg flex items-center justify-center">
+                  <i className="fas fa-building text-gray-300"></i>
+                </div>
+                <div>
+                  <div className="text-white font-medium">Finance</div>
+                  <div className="text-gray-400 text-sm">Search SEC filings</div>
+                </div>
+              </div>
+              <button 
+                onClick={() => setSearchSources(prev => ({...prev, finance: !prev.finance}))}
+                className={`w-12 h-6 rounded-full transition-colors ${searchSources.finance ? 'bg-blue-500' : 'bg-gray-600'}`}
+              >
+                <div className={`w-5 h-5 bg-white rounded-full transition-transform ${searchSources.finance ? 'translate-x-6' : 'translate-x-0.5'} mt-0.5`}></div>
+              </button>
+            </div>
+
+            <div className="flex items-center justify-between p-4 bg-gray-800 rounded-xl">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-gray-700 rounded-lg flex items-center justify-center">
+                  <i className="fas fa-users text-gray-300"></i>
+                </div>
+                <div>
+                  <div className="text-white font-medium">Social</div>
+                  <div className="text-gray-400 text-sm">Search for discussions and opinions</div>
+                </div>
+              </div>
+              <button 
+                onClick={() => setSearchSources(prev => ({...prev, social: !prev.social}))}
+                className={`w-12 h-6 rounded-full transition-colors ${searchSources.social ? 'bg-blue-500' : 'bg-gray-600'}`}
+              >
+                <div className={`w-5 h-5 bg-white rounded-full transition-transform ${searchSources.social ? 'translate-x-6' : 'translate-x-0.5'} mt-0.5`}></div>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     );
 
     return (
-      <div className="min-h-screen bg-[#FAFAF8] text-gray-900 flex flex-col">
+      <div className="min-h-screen bg-[#FAFAF8] text-gray-900 flex flex-col pb-24">
         {/* Top bar */}
         <div className="sticky top-0 z-10 w-full bg-[#FAFAF8]/80 backdrop-blur border-b border-gray-200/60">
           <div className="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between">
             <button className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center">
               <i className="fas fa-user text-gray-600 text-sm"></i>
             </button>
-            <div className="text-xl lowercase tracking-wide font-semibold">perplexity</div>
+            <div className="flex items-center gap-2">
+              <div className="text-xl lowercase tracking-wide font-semibold">MindMateAi</div>
+              <div className={`w-2 h-2 rounded-full ${
+                selectedModel === 'chatgpt' ? 'bg-green-500' :
+                selectedModel === 'perplexity' ? 'bg-blue-500' :
+                selectedModel === 'gemini' ? 'bg-purple-500' :
+                'bg-orange-500'
+              }`}></div>
+            </div>
             <button className="w-8 h-8 rounded-full flex items-center justify-center">
               <i className="fas fa-share-nodes text-gray-600"></i>
             </button>
-          </div>
-        </div>
+</div>
+</div>
 
         {/* Content area (watermark) */}
         <div className="relative flex-1 max-w-3xl w-full mx-auto px-4">
           {watermark}
-        </div>
+</div>
 
-        {/* Composer */}
-        <div className="sticky bottom-0 w-full bg-[#FAFAF8]/90 backdrop-blur pt-2 pb-4">
+        {/* Composer - lifted above bottom TabBar */}
+        <div className="fixed bottom-16 left-0 right-0 w-full bg-[#FAFAF8]/90 backdrop-blur pt-2 pb-4">
           <div className="max-w-3xl mx-auto px-4">
             <div className="flex items-center gap-2">
               <div className="flex-1">
                 <div className="flex items-center gap-3 rounded-full border border-gray-300 bg-white px-4 py-3 shadow-sm">
-                  <button className="text-gray-500">
+                  <button 
+                    onClick={() => setShowSourcesModal(true)}
+                    className="text-gray-500 hover:text-gray-700"
+                  >
                     <i className="fas fa-qrcode"></i>
                   </button>
-                  <input
+<input
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Ask anything..."
                     className="flex-1 bg-transparent outline-none text-[15px] placeholder:text-gray-400"
                   />
                   <button className="text-gray-500">
-                    <i className="fas fa-microphone"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
+<i className="fas fa-microphone"></i>
+</button>
+</div>
+</div>
+</div>
 
             {/* Bottom icons row */}
             <div className="mt-3 flex items-center justify-between px-1 text-gray-500">
@@ -232,216 +438,217 @@ const App: React.FC = () => {
                 <i className="fas fa-globe"></i>
                 <i className="fas fa-sparkles"></i>
                 <i className="fas fa-wifi"></i>
-              </div>
+</div>
             </div>
           </div>
         </div>
+        {showSourcesModal && <SourcesModal />}
       </div>
     );
   };
   const AuthScreen = () => {
-    const [formData, setFormData] = useState({
-      email: '',
-      password: '',
-      confirmPassword: '',
-      firstName: '',
-      lastName: ''
-    });
+const [formData, setFormData] = useState({
+email: '',
+password: '',
+confirmPassword: '',
+firstName: '',
+lastName: ''
+});
 
-    const handleInputChange = (field: string, value: string) => {
-      setFormData(prev => ({ ...prev, [field]: value }));
-    };
+const handleInputChange = (field: string, value: string) => {
+setFormData(prev => ({ ...prev, [field]: value }));
+};
 
-    const handleSubmit = () => {
-      // Handle authentication logic here
-      setCurrentScreen('chat');
-    };
+const handleSubmit = () => {
+// Handle authentication logic here
+setCurrentScreen('chat');
+};
 
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-400 via-pink-500 to-orange-400 flex flex-col relative overflow-hidden">
-        {/* Decorative elements */}
-        <div className="absolute top-20 left-8 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
-        <div className="absolute bottom-40 right-12 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
-        <div className="absolute top-1/3 right-6 w-16 h-16 bg-white/15 rounded-full blur-xl"></div>
-        <div className="absolute bottom-1/4 left-12 w-20 h-20 bg-white/15 rounded-full blur-xl"></div>
-        {/* Header */}
-        <div className="flex justify-between items-center px-6 py-6 relative z-10">
-          <button
-            onClick={() => setCurrentScreen('welcome')}
-            className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white cursor-pointer"
-          >
-            <i className="fas fa-arrow-left"></i>
-          </button>
-          <button
-            onClick={() => setCurrentScreen('auth')}
-            className="text-white/80 text-sm font-medium px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-all duration-300"
-            style={{ fontFamily: 'Poppins, sans-serif' }}
-          >
-            Skip
-          </button>
-        </div>
-        {/* Main content */}
-        <div className="flex-1 flex flex-col justify-center px-8 relative z-10">
-          {/* Logo section */}
-          <div className="text-center mb-12">
-            <div className="w-20 h-20 mx-auto mb-6 relative">
-              <div className="w-full h-full rounded-full bg-white/90 flex items-center justify-center shadow-xl">
-                <i className="fas fa-heart text-2xl text-purple-400"></i>
-              </div>
-              <div className="absolute inset-0 rounded-full bg-white/30 animate-ping"></div>
-            </div>
-            <h1 className="text-3xl font-bold text-white mb-2" style={{ fontFamily: 'Poppins, sans-serif' }}>
-              {authMode === 'signup' ? 'Join MindMate' : 'Welcome Back'}
-            </h1>
-            <p className="text-white/90 text-lg" style={{ fontFamily: 'Nunito, sans-serif' }}>
-              {authMode === 'signup' ? 'Start your wellness journey today' : 'Continue your wellness journey'}
-            </p>
-          </div>
-          {/* Auth form */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-white/20">
-            <div className="space-y-6">
-              {/* Toggle buttons */}
-              <div className="flex bg-gray-100 rounded-full p-1 mb-8">
-                <button
-                  onClick={() => setAuthMode('signup')}
-                  className={`flex-1 px-4 py-3 rounded-full font-semibold text-sm transition-all duration-300 cursor-pointer !rounded-button ${
-                    authMode === 'signup'
-                      ? 'bg-gradient-to-r from-purple-400 to-pink-400 text-white shadow-lg'
-                      : 'text-gray-600'
-                  }`}
-                  style={{ fontFamily: 'Poppins, sans-serif' }}
-                >
-                  Sign Up
-                </button>
-                <button
-                  onClick={() => setAuthMode('login')}
-                  className={`flex-1 px-4 py-3 rounded-full font-semibold text-sm transition-all duration-300 cursor-pointer !rounded-button ${
-                    authMode === 'login'
-                      ? 'bg-gradient-to-r from-purple-400 to-pink-400 text-white shadow-lg'
-                      : 'text-gray-600'
-                  }`}
-                  style={{ fontFamily: 'Poppins, sans-serif' }}
-                >
-                  Sign In
-                </button>
-              </div>
-              {/* Form fields */}
-              {authMode === 'signup' && (
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                      First Name
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.firstName}
-                      onChange={(e) => handleInputChange('firstName', e.target.value)}
-                      className="w-full px-4 py-3 bg-gray-50 border-none rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-300"
-                      placeholder="Enter first name"
-                      style={{ fontFamily: 'Nunito, sans-serif' }}
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                      Last Name
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.lastName}
-                      onChange={(e) => handleInputChange('lastName', e.target.value)}
-                      className="w-full px-4 py-3 bg-gray-50 border-none rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-300"
-                      placeholder="Enter last name"
-                      style={{ fontFamily: 'Nunito, sans-serif' }}
-                    />
-                  </div>
-                </div>
-              )}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => handleInputChange('email', e.target.value)}
-                  className="w-full px-4 py-3 bg-gray-50 border-none rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-300"
-                  placeholder="Enter your email"
-                  style={{ fontFamily: 'Nunito, sans-serif' }}
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                  Password
-                </label>
-                <input
-                  type="password"
-                  value={formData.password}
-                  onChange={(e) => handleInputChange('password', e.target.value)}
-                  className="w-full px-4 py-3 bg-gray-50 border-none rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-300"
-                  placeholder="Enter your password"
-                  style={{ fontFamily: 'Nunito, sans-serif' }}
-                />
-              </div>
-              {authMode === 'signup' && (
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                    Confirm Password
-                  </label>
-                  <input
-                    type="password"
-                    value={formData.confirmPassword}
-                    onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
-                    className="w-full px-4 py-3 bg-gray-50 border-none rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-300"
-                    placeholder="Confirm your password"
-                    style={{ fontFamily: 'Nunito, sans-serif' }}
-                  />
-                </div>
-              )}
-              {authMode === 'login' && (
-                <div className="flex justify-end">
-                  <button className="text-sm text-purple-500 font-medium" style={{ fontFamily: 'Nunito, sans-serif' }}>
-                    Forgot Password?
-                  </button>
-                </div>
-              )}
-              {/* Submit button */}
-              <button
-                onClick={handleSubmit}
-                className="w-full py-4 bg-gradient-to-r from-purple-400 to-pink-400 text-white rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer !rounded-button"
-                style={{ fontFamily: 'Poppins, sans-serif' }}
-              >
-                {authMode === 'signup' ? 'Create Account' : 'Sign In'}
-              </button>
-              {/* Social auth */}
-              <div className="text-center">
-                <p className="text-sm text-gray-500 mb-4" style={{ fontFamily: 'Nunito, sans-serif' }}>
-                  Or continue with
-                </p>
-                <div className="flex space-x-4">
-                  <button className="flex-1 py-3 bg-gray-50 rounded-xl font-medium text-gray-700 text-sm flex items-center justify-center space-x-2 hover:bg-gray-100 transition-all duration-300 cursor-pointer !rounded-button">
-                    <i className="fab fa-google text-red-500"></i>
-                    <span style={{ fontFamily: 'Nunito, sans-serif' }}>Google</span>
-                  </button>
-                  <button className="flex-1 py-3 bg-gray-50 rounded-xl font-medium text-gray-700 text-sm flex items-center justify-center space-x-2 hover:bg-gray-100 transition-all duration-300 cursor-pointer !rounded-button">
-                    <i className="fab fa-apple text-gray-800"></i>
-                    <span style={{ fontFamily: 'Nunito, sans-serif' }}>Apple</span>
-                  </button>
-                </div>
-              </div>
-              {/* Terms */}
-              {authMode === 'signup' && (
-                <p className="text-xs text-gray-500 text-center leading-relaxed" style={{ fontFamily: 'Nunito, sans-serif' }}>
-                  By creating an account, you agree to our{' '}
-                  <span className="text-purple-500 font-medium">Terms of Service</span> and{' '}
-                  <span className="text-purple-500 font-medium">Privacy Policy</span>
-                </p>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
+return (
+<div className="min-h-screen bg-gradient-to-br from-purple-400 via-pink-500 to-orange-400 flex flex-col relative overflow-hidden">
+{/* Decorative elements */}
+<div className="absolute top-20 left-8 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+<div className="absolute bottom-40 right-12 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
+<div className="absolute top-1/3 right-6 w-16 h-16 bg-white/15 rounded-full blur-xl"></div>
+<div className="absolute bottom-1/4 left-12 w-20 h-20 bg-white/15 rounded-full blur-xl"></div>
+{/* Header */}
+<div className="flex justify-between items-center px-6 py-6 relative z-10">
+<button
+onClick={() => setCurrentScreen('welcome')}
+className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white cursor-pointer"
+>
+<i className="fas fa-arrow-left"></i>
+</button>
+<button
+onClick={() => setCurrentScreen('auth')}
+className="text-white/80 text-sm font-medium px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-all duration-300"
+style={{ fontFamily: 'Poppins, sans-serif' }}
+>
+Skip
+</button>
+</div>
+{/* Main content */}
+<div className="flex-1 flex flex-col justify-center px-8 relative z-10">
+{/* Logo section */}
+<div className="text-center mb-12">
+<div className="w-20 h-20 mx-auto mb-6 relative">
+<div className="w-full h-full rounded-full bg-white/90 flex items-center justify-center shadow-xl">
+<i className="fas fa-heart text-2xl text-purple-400"></i>
+</div>
+<div className="absolute inset-0 rounded-full bg-white/30 animate-ping"></div>
+</div>
+<h1 className="text-3xl font-bold text-white mb-2" style={{ fontFamily: 'Poppins, sans-serif' }}>
+{authMode === 'signup' ? 'Join MindMate' : 'Welcome Back'}
+</h1>
+<p className="text-white/90 text-lg" style={{ fontFamily: 'Nunito, sans-serif' }}>
+{authMode === 'signup' ? 'Start your wellness journey today' : 'Continue your wellness journey'}
+</p>
+</div>
+{/* Auth form */}
+<div className="bg-white/95 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-white/20">
+<div className="space-y-6">
+{/* Toggle buttons */}
+<div className="flex bg-gray-100 rounded-full p-1 mb-8">
+<button
+onClick={() => setAuthMode('signup')}
+className={`flex-1 px-4 py-3 rounded-full font-semibold text-sm transition-all duration-300 cursor-pointer !rounded-button ${
+authMode === 'signup'
+? 'bg-gradient-to-r from-purple-400 to-pink-400 text-white shadow-lg'
+: 'text-gray-600'
+}`}
+style={{ fontFamily: 'Poppins, sans-serif' }}
+>
+Sign Up
+</button>
+<button
+onClick={() => setAuthMode('login')}
+className={`flex-1 px-4 py-3 rounded-full font-semibold text-sm transition-all duration-300 cursor-pointer !rounded-button ${
+authMode === 'login'
+? 'bg-gradient-to-r from-purple-400 to-pink-400 text-white shadow-lg'
+: 'text-gray-600'
+}`}
+style={{ fontFamily: 'Poppins, sans-serif' }}
+>
+Sign In
+</button>
+</div>
+{/* Form fields */}
+{authMode === 'signup' && (
+<div className="grid grid-cols-2 gap-4">
+<div>
+<label className="block text-sm font-medium text-gray-700 mb-2" style={{ fontFamily: 'Poppins, sans-serif' }}>
+First Name
+</label>
+<input
+type="text"
+value={formData.firstName}
+onChange={(e) => handleInputChange('firstName', e.target.value)}
+className="w-full px-4 py-3 bg-gray-50 border-none rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-300"
+placeholder="Enter first name"
+style={{ fontFamily: 'Nunito, sans-serif' }}
+/>
+</div>
+<div>
+<label className="block text-sm font-medium text-gray-700 mb-2" style={{ fontFamily: 'Poppins, sans-serif' }}>
+Last Name
+</label>
+<input
+type="text"
+value={formData.lastName}
+onChange={(e) => handleInputChange('lastName', e.target.value)}
+className="w-full px-4 py-3 bg-gray-50 border-none rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-300"
+placeholder="Enter last name"
+style={{ fontFamily: 'Nunito, sans-serif' }}
+/>
+</div>
+</div>
+)}
+<div>
+<label className="block text-sm font-medium text-gray-700 mb-2" style={{ fontFamily: 'Poppins, sans-serif' }}>
+Email Address
+</label>
+<input
+type="email"
+value={formData.email}
+onChange={(e) => handleInputChange('email', e.target.value)}
+className="w-full px-4 py-3 bg-gray-50 border-none rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-300"
+placeholder="Enter your email"
+style={{ fontFamily: 'Nunito, sans-serif' }}
+/>
+</div>
+<div>
+<label className="block text-sm font-medium text-gray-700 mb-2" style={{ fontFamily: 'Poppins, sans-serif' }}>
+Password
+</label>
+<input
+type="password"
+value={formData.password}
+onChange={(e) => handleInputChange('password', e.target.value)}
+className="w-full px-4 py-3 bg-gray-50 border-none rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-300"
+placeholder="Enter your password"
+style={{ fontFamily: 'Nunito, sans-serif' }}
+/>
+</div>
+{authMode === 'signup' && (
+<div>
+<label className="block text-sm font-medium text-gray-700 mb-2" style={{ fontFamily: 'Poppins, sans-serif' }}>
+Confirm Password
+</label>
+<input
+type="password"
+value={formData.confirmPassword}
+onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
+className="w-full px-4 py-3 bg-gray-50 border-none rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-300"
+placeholder="Confirm your password"
+style={{ fontFamily: 'Nunito, sans-serif' }}
+/>
+</div>
+)}
+{authMode === 'login' && (
+<div className="flex justify-end">
+<button className="text-sm text-purple-500 font-medium" style={{ fontFamily: 'Nunito, sans-serif' }}>
+Forgot Password?
+</button>
+</div>
+)}
+{/* Submit button */}
+<button
+onClick={handleSubmit}
+className="w-full py-4 bg-gradient-to-r from-purple-400 to-pink-400 text-white rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer !rounded-button"
+style={{ fontFamily: 'Poppins, sans-serif' }}
+>
+{authMode === 'signup' ? 'Create Account' : 'Sign In'}
+</button>
+{/* Social auth */}
+<div className="text-center">
+<p className="text-sm text-gray-500 mb-4" style={{ fontFamily: 'Nunito, sans-serif' }}>
+Or continue with
+</p>
+<div className="flex space-x-4">
+<button className="flex-1 py-3 bg-gray-50 rounded-xl font-medium text-gray-700 text-sm flex items-center justify-center space-x-2 hover:bg-gray-100 transition-all duration-300 cursor-pointer !rounded-button">
+<i className="fab fa-google text-red-500"></i>
+<span style={{ fontFamily: 'Nunito, sans-serif' }}>Google</span>
+</button>
+<button className="flex-1 py-3 bg-gray-50 rounded-xl font-medium text-gray-700 text-sm flex items-center justify-center space-x-2 hover:bg-gray-100 transition-all duration-300 cursor-pointer !rounded-button">
+<i className="fab fa-apple text-gray-800"></i>
+<span style={{ fontFamily: 'Nunito, sans-serif' }}>Apple</span>
+</button>
+</div>
+</div>
+{/* Terms */}
+{authMode === 'signup' && (
+<p className="text-xs text-gray-500 text-center leading-relaxed" style={{ fontFamily: 'Nunito, sans-serif' }}>
+By creating an account, you agree to our{' '}
+<span className="text-purple-500 font-medium">Terms of Service</span> and{' '}
+<span className="text-purple-500 font-medium">Privacy Policy</span>
+</p>
+)}
+</div>
+</div>
+</div>
+</div>
+);
+};
 
   const MoodTrackingScreen = () => {
     const [selectedMood, setSelectedMood] = useState<number | null>(null);
@@ -488,8 +695,8 @@ const App: React.FC = () => {
       alert('Mood logged successfully!');
     };
 
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-sky-50 to-purple-50 px-6 py-8">
+return (
+<div className="min-h-screen bg-gradient-to-b from-sky-50 to-purple-50 px-6 py-8">
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold text-gray-800 mb-4" style={{ fontFamily: 'Poppins, sans-serif' }}>
             How are you feeling today?
@@ -967,70 +1174,70 @@ const App: React.FC = () => {
 
     const ProfileTab = () => (
       <div>
-        {/* Avatar section */}
-        <div className="text-center mb-8">
-          <div className="w-24 h-24 mx-auto mb-4 relative">
-            <div className="w-full h-full rounded-full bg-gradient-to-br from-purple-300 to-sky-300 flex items-center justify-center shadow-lg">
-              <i className="fas fa-user text-3xl text-white"></i>
-            </div>
-            <div className="absolute inset-0 rounded-full bg-purple-300/20 animate-pulse"></div>
-          </div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-2" style={{ fontFamily: 'Poppins, sans-serif' }}>
-            Sarah Johnson
-          </h2>
-          <p className="text-gray-600" style={{ fontFamily: 'Nunito, sans-serif' }}>
-            Wellness journey started 2 months ago
-          </p>
-        </div>
+{/* Avatar section */}
+<div className="text-center mb-8">
+<div className="w-24 h-24 mx-auto mb-4 relative">
+<div className="w-full h-full rounded-full bg-gradient-to-br from-purple-300 to-sky-300 flex items-center justify-center shadow-lg">
+<i className="fas fa-user text-3xl text-white"></i>
+</div>
+<div className="absolute inset-0 rounded-full bg-purple-300/20 animate-pulse"></div>
+</div>
+<h2 className="text-2xl font-bold text-gray-800 mb-2" style={{ fontFamily: 'Poppins, sans-serif' }}>
+Sarah Johnson
+</h2>
+<p className="text-gray-600" style={{ fontFamily: 'Nunito, sans-serif' }}>
+Wellness journey started 2 months ago
+</p>
+</div>
 
-        {/* Stats cards */}
-        <div className="grid grid-cols-2 gap-4 mb-8">
-          <div className="bg-white rounded-2xl p-4 shadow-lg text-center">
-            <div className="text-2xl font-bold text-purple-400 mb-1">47</div>
-            <div className="text-sm text-gray-600">Days Active</div>
-          </div>
-          <div className="bg-white rounded-2xl p-4 shadow-lg text-center">
-            <div className="text-2xl font-bold text-sky-400 mb-1">128</div>
-            <div className="text-sm text-gray-600">Sessions</div>
-          </div>
-        </div>
+{/* Stats cards */}
+<div className="grid grid-cols-2 gap-4 mb-8">
+<div className="bg-white rounded-2xl p-4 shadow-lg text-center">
+<div className="text-2xl font-bold text-purple-400 mb-1">47</div>
+<div className="text-sm text-gray-600">Days Active</div>
+</div>
+<div className="bg-white rounded-2xl p-4 shadow-lg text-center">
+<div className="text-2xl font-bold text-sky-400 mb-1">128</div>
+<div className="text-sm text-gray-600">Sessions</div>
+</div>
+</div>
 
-        {/* Progress chart */}
-        <div className="bg-white rounded-2xl p-6 shadow-lg mb-8">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4" style={{ fontFamily: 'Poppins, sans-serif' }}>
-            Wellness Progress
-          </h3>
-          <div className="h-32 bg-gradient-to-r from-sky-100 to-purple-100 rounded-xl flex items-end justify-between px-4 py-4">
-            {Array.from({ length: 7 }, (_, index) => (
-              <div key={index} className="flex flex-col items-center space-y-2">
-                <div
-                  className="w-4 bg-gradient-to-t from-purple-300 to-sky-300 rounded-full"
-                  style={{ height: `${Math.random() * 60 + 30}px` }}
-                ></div>
-              </div>
-            ))}
-          </div>
-        </div>
+{/* Progress chart */}
+<div className="bg-white rounded-2xl p-6 shadow-lg mb-8">
+<h3 className="text-lg font-semibold text-gray-800 mb-4" style={{ fontFamily: 'Poppins, sans-serif' }}>
+Wellness Progress
+</h3>
+<div className="h-32 bg-gradient-to-r from-sky-100 to-purple-100 rounded-xl flex items-end justify-between px-4 py-4">
+{Array.from({ length: 7 }, (_, index) => (
+<div key={index} className="flex flex-col items-center space-y-2">
+<div
+className="w-4 bg-gradient-to-t from-purple-300 to-sky-300 rounded-full"
+style={{ height: `${Math.random() * 60 + 30}px` }}
+></div>
+</div>
+))}
+</div>
+</div>
 
-        {/* Achievement badges */}
-        <div className="bg-white rounded-2xl p-6 shadow-lg">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4" style={{ fontFamily: 'Poppins, sans-serif' }}>
-            Recent Achievements
-          </h3>
-          <div className="flex space-x-4">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-yellow-200 to-orange-200 flex items-center justify-center shadow-md">
-              <i className="fas fa-star text-yellow-600"></i>
-            </div>
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-green-200 to-teal-200 flex items-center justify-center shadow-md">
-              <i className="fas fa-heart text-green-600"></i>
-            </div>
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-200 to-pink-200 flex items-center justify-center shadow-md">
-              <i className="fas fa-trophy text-purple-600"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+{/* Achievement badges */}
+<div className="bg-white rounded-2xl p-6 shadow-lg">
+<h3 className="text-lg font-semibold text-gray-800 mb-4" style={{ fontFamily: 'Poppins, sans-serif' }}>
+Recent Achievements
+</h3>
+<div className="flex space-x-4">
+<div className="w-12 h-12 rounded-full bg-gradient-to-br from-yellow-200 to-orange-200 flex items-center justify-center shadow-md">
+<i className="fas fa-star text-yellow-600"></i>
+</div>
+<div className="w-12 h-12 rounded-full bg-gradient-to-br from-green-200 to-teal-200 flex items-center justify-center shadow-md">
+<i className="fas fa-heart text-green-600"></i>
+</div>
+<div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-200 to-pink-200 flex items-center justify-center shadow-md">
+<i className="fas fa-trophy text-purple-600"></i>
+</div>
+</div>
+</div>
+</div>
+);
 
     const SettingsTab = () => (
       <div>
@@ -1335,74 +1542,74 @@ const App: React.FC = () => {
   };
 
 
-  const TabBar = () => {
-    const tabs = [
-      { id: 'chat', icon: 'fas fa-comments', label: 'Chat' },
-      { id: 'mood', icon: 'fas fa-heart', label: 'Mood' },
-      { id: 'tools', icon: 'fas fa-toolbox', label: 'Tools' },
-      { id: 'profile', icon: 'fas fa-user', label: 'Profile' }
-    ];
-    return (
-      <div className="fixed bottom-0 w-full bg-white/90 backdrop-blur-sm border-t border-purple-100 px-6 py-2">
-        <div className="grid grid-cols-4 gap-0">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setCurrentScreen(tab.id)}
+const TabBar = () => {
+const tabs = [
+{ id: 'chat', icon: 'fas fa-comments', label: 'Chat' },
+{ id: 'mood', icon: 'fas fa-heart', label: 'Mood' },
+{ id: 'tools', icon: 'fas fa-toolbox', label: 'Tools' },
+{ id: 'profile', icon: 'fas fa-user', label: 'Profile' }
+];
+return (
+<div className="fixed bottom-0 w-full bg-white/90 backdrop-blur-sm border-t border-purple-100 px-6 py-2">
+<div className="grid grid-cols-4 gap-0">
+{tabs.map((tab) => (
+<button
+key={tab.id}
+onClick={() => setCurrentScreen(tab.id)}
               className={`flex flex-col items-center justify-center py-2 cursor-pointer transition-all duration-300 ${
-                currentScreen === tab.id ? 'text-purple-400' : 'text-gray-400'
-              }`}
-            >
+currentScreen === tab.id ? 'text-purple-400' : 'text-gray-400'
+}`}
+>
               <i className={`${tab.icon} text-sm mb-1`}></i>
-              <span className="text-xs" style={{ fontFamily: 'Nunito, sans-serif' }}>
-                {tab.label}
-              </span>
-            </button>
-          ))}
-        </div>
-      </div>
-    );
-  };
+<span className="text-xs" style={{ fontFamily: 'Nunito, sans-serif' }}>
+{tab.label}
+</span>
+</button>
+))}
+</div>
+</div>
+);
+};
 
-  const renderScreen = () => {
-    switch (currentScreen) {
-      case 'welcome':
-        return <WelcomeScreen />;
-      case 'onboarding':
-        return <OnboardingScreen />;
-      case 'chat':
-        return <ChatScreen />;
-      case 'mood':
+const renderScreen = () => {
+switch (currentScreen) {
+case 'welcome':
+return <WelcomeScreen />;
+case 'onboarding':
+return <OnboardingScreen />;
+case 'chat':
+return <ChatScreen />;
+case 'mood':
         return <MoodTrackingScreen />;
-      case 'tools':
-        return <TherapyToolsScreen />;
-      case 'auth':
-        return <AuthScreen />;
-      case 'profile':
-        return <ProfileScreen />;
-      default:
-        return <WelcomeScreen />;
-    }
-  };
+case 'tools':
+return <TherapyToolsScreen />;
+case 'auth':
+return <AuthScreen />;
+case 'profile':
+return <ProfileScreen />;
+default:
+return <WelcomeScreen />;
+}
+};
 
-  return (
-    <div className="w-full min-h-screen bg-white relative overflow-hidden" style={{ maxWidth: '100vw' }}>
-      <style>{`
-        .!rounded-button {
-          border-radius: 25px !important;
-        }
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Nunito:wght@400;500;600&display=swap');
-        body {
-          margin: 0;
-          padding: 0;
-          overflow-x: hidden;
-        }
-      `}</style>
-      {renderScreen()}
-      {currentScreen !== 'welcome' && currentScreen !== 'onboarding' && currentScreen !== 'auth' && <TabBar />}
+return (
+<div className="w-full min-h-screen bg-white relative overflow-hidden" style={{ maxWidth: '100vw' }}>
+<style>{`
+.!rounded-button {
+border-radius: 25px !important;
+}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Nunito:wght@400;500;600&display=swap');
+body {
+margin: 0;
+padding: 0;
+overflow-x: hidden;
+}
+`}</style>
+{renderScreen()}
+{currentScreen !== 'welcome' && currentScreen !== 'onboarding' && currentScreen !== 'auth' && <TabBar />}
       <Toaster position="top-center" />
-    </div>
-  );
+</div>
+);
 };
 
 export default App;
