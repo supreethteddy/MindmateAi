@@ -171,74 +171,74 @@ const App: React.FC = () => {
   };
 
   const ChatScreen = () => {
-    const [messages] = useState([
-      { type: 'ai', text: 'Hello! I\'m MindMate, your AI wellness companion. How are you feeling today?' },
-      { type: 'user', text: 'I\'ve been feeling a bit overwhelmed lately with work stress.' },
-      { type: 'ai', text: 'I understand that work stress can feel overwhelming. It\'s completely normal to feel this way. Would you like to explore some techniques that might help you manage these feelings?' }
-    ]);
+    const [query, setQuery] = React.useState('');
+    const watermark = (
+      <div className="pointer-events-none select-none absolute inset-0 flex items-center justify-center">
+        <div className="text-gray-300/60 text-2xl tracking-wide text-center">
+          <div className="w-6 h-6 mx-auto mb-3 border border-gray-300/70 rounded-md rotate-45"></div>
+          <div className="font-serif">Where</div>
+          <div className="font-serif">knowledge</div>
+          <div className="font-serif">begins</div>
+        </div>
+      </div>
+    );
 
     return (
-      <div className="min-h-screen bg-gradient-to-b from-sky-50 to-purple-50 flex flex-col">
-        {/* Header */}
-        <div className="fixed top-0 w-full bg-white/90 backdrop-blur-sm border-b border-purple-100 px-6 py-4 z-10">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-300 to-sky-300 flex items-center justify-center shadow-md">
-              <div className="w-2 h-2 bg-white rounded-full"></div>
-              <div className="w-1 h-1 bg-white rounded-full ml-1"></div>
-            </div>
-            <div>
-              <h3 className="font-semibold text-gray-800" style={{ fontFamily: 'Poppins, sans-serif' }}>MindMate AI</h3>
-              <p className="text-sm text-gray-500">Always here for you</p>
-            </div>
+      <div className="min-h-screen bg-[#FAFAF8] text-gray-900 flex flex-col">
+        {/* Top bar */}
+        <div className="sticky top-0 z-10 w-full bg-[#FAFAF8]/80 backdrop-blur border-b border-gray-200/60">
+          <div className="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between">
+            <button className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center">
+              <i className="fas fa-user text-gray-600 text-sm"></i>
+            </button>
+            <div className="text-xl lowercase tracking-wide font-semibold">perplexity</div>
+            <button className="w-8 h-8 rounded-full flex items-center justify-center">
+              <i className="fas fa-share-nodes text-gray-600"></i>
+            </button>
           </div>
         </div>
-        {/* Messages */}
-        <div className="flex-1 px-6 py-20 space-y-4">
-          {messages.map((message, index) => (
-            <div key={index} className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
-              <div className={`max-w-xs px-4 py-3 rounded-2xl shadow-sm ${
-                message.type === 'user'
-                  ? 'bg-gradient-to-r from-orange-200 to-pink-200 text-gray-800'
-                  : 'bg-white text-gray-700 border border-purple-100'
-              }`}>
-                <p className="text-sm leading-relaxed" style={{ fontFamily: 'Nunito, sans-serif' }}>
-                  {message.text}
-                </p>
+
+        {/* Content area (watermark) */}
+        <div className="relative flex-1 max-w-3xl w-full mx-auto px-4">
+          {watermark}
+        </div>
+
+        {/* Composer */}
+        <div className="sticky bottom-0 w-full bg-[#FAFAF8]/90 backdrop-blur pt-2 pb-4">
+          <div className="max-w-3xl mx-auto px-4">
+            <div className="flex items-center gap-2">
+              <div className="flex-1">
+                <div className="flex items-center gap-3 rounded-full border border-gray-300 bg-white px-4 py-3 shadow-sm">
+                  <button className="text-gray-500">
+                    <i className="fas fa-qrcode"></i>
+                  </button>
+                  <input
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Ask anything..."
+                    className="flex-1 bg-transparent outline-none text-[15px] placeholder:text-gray-400"
+                  />
+                  <button className="text-gray-500">
+                    <i className="fas fa-microphone"></i>
+                  </button>
+                </div>
               </div>
             </div>
-          ))}
-          {/* Typing indicator */}
-          <div className="flex justify-start">
-            <div className="bg-white px-4 py-3 rounded-2xl shadow-sm border border-purple-100">
-              <p className="text-sm text-purple-400 italic" style={{ fontFamily: 'Nunito, sans-serif' }}>
-                MindMate is thinking empathetically...
-              </p>
+
+            {/* Bottom icons row */}
+            <div className="mt-3 flex items-center justify-between px-1 text-gray-500">
+              <div className="flex items-center gap-6">
+                <i className="fas fa-circle-dot"></i>
+                <i className="fas fa-globe"></i>
+                <i className="fas fa-sparkles"></i>
+                <i className="fas fa-wifi"></i>
+              </div>
             </div>
-          </div>
-        </div>
-        {/* Input area */}
-        <div className="fixed bottom-0 w-full bg-white/90 backdrop-blur-sm border-t border-purple-100 px-6 py-4">
-          <div className="flex items-center space-x-3">
-            <div className="flex-1 bg-gray-100 rounded-full px-4 py-3 flex items-center space-x-3">
-              <input
-                type="text"
-                placeholder="Share what's on your mind..."
-                className="flex-1 bg-transparent border-none outline-none text-sm"
-                style={{ fontFamily: 'Nunito, sans-serif' }}
-              />
-              <button className="text-purple-400 cursor-pointer">
-                <i className="fas fa-microphone"></i>
-              </button>
-            </div>
-            <button className="w-10 h-10 bg-gradient-to-r from-purple-300 to-sky-300 rounded-full flex items-center justify-center shadow-md cursor-pointer">
-              <i className="fas fa-heart text-white text-sm"></i>
-            </button>
           </div>
         </div>
       </div>
     );
   };
-
   const AuthScreen = () => {
     const [formData, setFormData] = useState({
       email: '',
